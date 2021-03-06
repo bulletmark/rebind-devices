@@ -22,10 +22,10 @@ all:
 	@echo "or make doc|check|clean"
 
 install:
-	@./install.sh -d "$(DESTDIR)" install
+	@./$(NAME)-setup -d "$(DESTDIR)" install
 
 uninstall:
-	@./install.sh -d "$(DESTDIR)" uninstall
+	@./$(NAME)-setup -d "$(DESTDIR)" uninstall
 
 doc:	$(DOCOUT)
 
@@ -35,7 +35,7 @@ $(DOCOUT): $(DOC)
 check:
 	flake8 $(NAME)
 	vermin --no-tips -i -q $(NAME)
-	shellcheck *.sh
+	shellcheck $(NAME)-setup
 
 clean:
 	@rm -vrf $(DOCOUT) __pycache__/

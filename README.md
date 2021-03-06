@@ -17,8 +17,8 @@ restore.
 
     git clone http://github.com/bulletmark/rebind-devices
     cd rebind-devices
-    sudo ./install.sh install
-    sudo cp /usr/share/rebind-device/rebind-devices.conf /etc/
+    sudo ./rebind-devices-setup install
+    sudo cp /usr/share/rebind-devices/rebind-devices.conf /etc/
     sudo vim /etc/rebind-devices.conf # Add the devices you want to rebind
     sudo systemctl enable rebind-devices
 
@@ -26,13 +26,13 @@ restore.
 
     cd rebind-devices  # Source dir, as above
     git pull
-    sudo ./install.sh install
+    sudo ./rebind-devices-setup install
 
 ### UNINSTALL
 
     sudo systemctl disable rebind-devices
     cd rebind-devices  # Source dir, as above
-    sudo ./install.sh uninstall
+    sudo ./rebind-devices-setup uninstall
     sudo rm /etc/rebind-devices.conf
 
 ### LOGGING

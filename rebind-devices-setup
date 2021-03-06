@@ -2,13 +2,14 @@
 # Installer script
 # (C) Mark Blakeney, Feb 2021.
 
-NAME="$(basename $PWD)"
+PROG="$(basename $0)"
+NAME=${PROG%-*}
 SHRDIR="/usr/share/$NAME"
 SYSDIR="/etc/systemd/system"
 
 usage() {
     echo "Usage:"
-    echo "As root: sudo $0 install|uninstall"
+    echo "As root: sudo $PROG install|uninstall"
     echo
     echo "(-d option sets DESTDIR for install/uninstall)"
     exit 1
