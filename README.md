@@ -6,12 +6,14 @@ specified as [sysfs](https://man7.org/linux/man-pages/man5/sysfs.5.html)
 BUS ID paths in the configuration file `/etc/rebind-devices.conf`. It
 works by writing the BUS ID of the device to the [unbind and bind
 files](https://lwn.net/Articles/143397/) pertaining to the associated
-device driver. Your system must be using
+device driver. Use `lspci`, `lsusb -v`, etc to find the BUS ID path of a
+device you want to reset, so you can add that BUS ID to your
+configuration file. Your system must be using
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/).
 
 I use it to reset the USB controller on my external dock whenever my
 system resumes, to fix a faulty USB keyboard that otherwise does not
-restore.
+restore. I used `lspci | grep USB` to determine it's BUS ID.
 
 ### INSTALLATION
 
