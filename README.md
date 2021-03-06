@@ -15,6 +15,9 @@ I use it to reset the USB controller on my external dock whenever my
 system resumes, to fix a faulty USB keyboard that otherwise does not
 restore. I used `lspci | grep USB` to determine it's BUS ID.
 
+The latest version and documentation for this utility is available at
+https://github.com/bulletmark/rebind-devices.
+
 ### INSTALLATION
 
 Arch Linux users can install [rebind-devices from the
