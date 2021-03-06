@@ -1,0 +1,49 @@
+#!/usr/bin/python3
+'Program to rebind configured devices after resume from suspend.'
+# Author: Mark Blakeney, Feb 2021.
+
+import sys
+import argparse
+from pathlib import Path
+
+def rebind(dev):
+    bdir = dev.parent
+    name = dev.name
+    if not bdir.exists():
+        return f'Path {bdir} does not exist.'
+
+    try:
+        bdir.joinpath('unbind').write_text(name)
+    except Exception:
+        pass
+
+    bind = bdir.joinpath('bind')
+    if not bind.exists():
+        return f'Bind path {bdir} does not exist.'
+
+    try:
+        bind.write_text(name)
+    except Exception as e:
+        return f'Error writing {name} to {bind}:\n{str(e)}.'
+
+# Process command line options
+opt = argparse.ArgumentParser(description=__doc__.strip(),
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+opt.add_argument('-c', '--config', default=f'/etc/{opt.prog}.conf',
+        help='config file')
+args = opt.parse_args()
+
+conf = Path(args.config)
+if not conf.exists():
+    sys.exit(f'Configuration file {conf} does not exist.')
+
+errmsg = ''
+for line in conf.open():
+    line = line.strip()
+    if line and line[0] != '#':
+        errmsg = rebind(Path(line))
+        if errmsg:
+            print(errmsg, file=sys.stderr)
+
+if errmsg == '':
+    sys.exit(f'Nothing configured in {conf}.')

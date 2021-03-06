@@ -1,0 +1,10 @@
+[Unit]
+Description=Rebind devices on system resume
+After=suspend.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/%p
+
+[Install]
+WantedBy=suspend.target

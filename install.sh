@@ -1,0 +1,58 @@
+#!/bin/bash
+# Installer script
+# (C) Mark Blakeney, Feb 2021.
+
+NAME="$(basename $PWD)"
+SHRDIR="/usr/share/$NAME"
+SYSDIR="/etc/systemd/system"
+
+usage() {
+    echo "Usage:"
+    echo "As root: sudo $0 install|uninstall"
+    echo
+    echo "(-d option sets DESTDIR for install/uninstall)"
+    exit 1
+}
+
+# Process command line options
+DESTDIR=""
+while getopts d: c; do
+    case $c in
+    d) DESTDIR="$OPTARG";;
+    \?) usage;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+if [[ $# -ne 1 ]]; then
+    usage
+fi
+
+cmd="$1"
+
+if [[ $cmd == install || $cmd == uninstall ]]; then
+    DESTDIR="${DESTDIR%%+(/)}"
+    if [[ -z $DESTDIR && $(id -un) != root ]]; then
+	echo "Install or uninstall must be run as sudo/root."
+	exit 1
+    fi
+
+    if [[ $cmd == install ]]; then
+	install -CDv -m 755 -t $DESTDIR/usr/bin $NAME
+	install -CDv -m 644 -t $DESTDIR$SYSDIR $NAME.service
+	install -CDv -m 644 -t $DESTDIR$SHRDIR $NAME.conf
+	install -CDv -m 644 -t $DESTDIR$SHRDIR README.md
+	if [[ -z $DESTDIR && ! -f /etc/$NAME.conf ]]; then
+	    echo "Now copy $SHRDIR/$NAME.conf to /etc/ and edit appropriately"
+	fi
+    else
+	rm -rfv $DESTDIR$SHRDIR
+	rm -fv $DESTDIR$SYSDIR/$NAME.service
+	rm -fv $DESTDIR/usr/bin/$NAME
+    fi
+else
+    usage
+fi
+
+exit 0
