@@ -12,7 +12,7 @@
 # General Public License at <http://www.gnu.org/licenses/> for more
 # details.
 
-NAME = $(shell basename $(CURDIR))
+NAME = rebind-devices
 
 all:
 	@echo "Type sudo make install|uninstall"
