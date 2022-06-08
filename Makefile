@@ -12,14 +12,11 @@
 # General Public License at <http://www.gnu.org/licenses/> for more
 # details.
 
-NAME = rebind-devices
-
-DOC = README.md
-DOCOUT = $(DOC:.md=.html)
+NAME = $(shell basename $(CURDIR))
 
 all:
 	@echo "Type sudo make install|uninstall"
-	@echo "or make doc|check|clean"
+	@echo "or make check|clean"
 
 install:
 	@./$(NAME)-setup -d "$(DESTDIR)" install
@@ -27,15 +24,10 @@ install:
 uninstall:
 	@./$(NAME)-setup -d "$(DESTDIR)" uninstall
 
-doc:	$(DOCOUT)
-
-$(DOCOUT): $(DOC)
-	markdown $< >$@
-
 check:
 	flake8 $(NAME)
-	vermin --no-tips -i -q $(NAME)
+	vermin --no-tips -i $(NAME)
 	shellcheck $(NAME)-setup
 
 clean:
-	@rm -vrf $(DOCOUT) __pycache__/
+	@rm -vrf __pycache__/
