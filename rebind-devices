@@ -3,28 +3,39 @@
 # Author: Mark Blakeney, Feb 2021.
 
 import sys
+import time
 import argparse
 from pathlib import Path
 
+RETRIES = 30
+
 def rebind(dev):
-    bdir = dev.parent
+    'Rebind the specified device'
+    if not dev.exists():
+        return False, f'No device {dev}'
+
     name = dev.name
-    if not bdir.exists():
-        return f'Path {bdir} does not exist.'
+    unbind = dev.with_name('unbind')
+    bind = dev.with_name('bind')
 
-    try:
-        bdir.joinpath('unbind').write_text(name)
-    except Exception:
-        pass
+    # Keep trying until we get a successful bind ..
+    for retry in range(1, RETRIES + 1):
+        try:
+            unbind.write_text(name)
+        except Exception:
+            pass
 
-    bind = bdir.joinpath('bind')
-    if not bind.exists():
-        return f'Bind path {bdir} does not exist.'
+        try:
+            bind.write_text(name)
+        except Exception:
+            pass
+        else:
+            s = 's' if retry > 1 else ''
+            return True, f'Rebound {dev} in {retry} attempt{s}.'
 
-    try:
-        bind.write_text(name)
-    except Exception as e:
-        return f'Error writing {name} to {bind}:\n{str(e)}.'
+        time.sleep(1)
+
+    return False, f'Failed to rebind {dev} within {retry} attempts.'
 
 # Process command line options
 opt = argparse.ArgumentParser(description=__doc__.strip(),
@@ -37,13 +48,8 @@ conf = Path(args.config)
 if not conf.exists():
     sys.exit(f'Configuration file {conf} does not exist.')
 
-errmsg = ''
 for line in conf.open():
     line = line.strip()
     if line and line[0] != '#':
-        errmsg = rebind(Path(line))
-        if errmsg:
-            print(errmsg, file=sys.stderr)
-
-if errmsg == '':
-    sys.exit(f'Nothing configured in {conf}.')
+        success, msg = rebind(Path(line))
+        print(msg, file=(sys.stdout if success else sys.stderr))

@@ -21,8 +21,10 @@ https://github.com/bulletmark/rebind-devices.
 ### INSTALLATION
 
 Arch Linux users can install [rebind-devices from the
-AUR](https://aur.archlinux.org/packages/rebind-devices/).
-Alternatively, do the following to install from the source repository.
+AUR](https://aur.archlinux.org/packages/rebind-devices/) and just follow
+the CONFIGURATION and LOGGING sections below.
+
+Other users should do the following to install from the source repository.
 
     git clone http://github.com/bulletmark/rebind-devices
     cd rebind-devices
@@ -31,25 +33,35 @@ Alternatively, do the following to install from the source repository.
 ### CONFIGURATION
 
     sudo cp /usr/share/rebind-devices/rebind-devices.conf /etc/
-    sudo vim /etc/rebind-devices.conf # Add the devices you want to rebind
-    sudo systemctl enable rebind-devices
 
-### UPGRADE
+    # Add the devices you want to rebind:
+    sudo vim /etc/rebind-devices.conf
 
-    cd rebind-devices  # Source dir, as above
-    git pull
-    sudo ./rebind-devices-setup install
-
-### UNINSTALL
-
-    sudo systemctl disable rebind-devices
-    cd rebind-devices  # Source dir, as above
-    sudo ./rebind-devices-setup uninstall
-    sudo rm /etc/rebind-devices.conf
+    # Enable and start:
+    sudo systemctl enable --now rebind-devices
 
 ### LOGGING
 
     journalctl -u rebind-devices
+
+### UPGRADE
+
+    # cd to source dir
+    cd rebind-devices
+    git pull
+    sudo ./rebind-devices-setup install
+    sudo systemctl restart rebind-devices
+
+### UNINSTALL
+
+    # Stop and disable
+    sudo systemctl disable --now rebind-devices
+
+    # cd to source dir
+    cd rebind-devices
+
+    sudo ./rebind-devices-setup uninstall
+    sudo rm /etc/rebind-devices.conf
 
 ### LICENSE
 
