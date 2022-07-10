@@ -1,4 +1,5 @@
 ## REBIND-DEVICES
+[![AUR](https://img.shields.io/aur/version/rebind-devices)](https://aur.archlinux.org/packages/rebind-devices/)
 
 This is a simple Linux service to automatically reset one or more
 devices whenever your system resumes from sleep. The devices are
