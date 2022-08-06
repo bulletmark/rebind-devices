@@ -23,7 +23,7 @@ https://github.com/bulletmark/rebind-devices.
 
 Arch Linux users can install [rebind-devices from the
 AUR](https://aur.archlinux.org/packages/rebind-devices/) and just follow
-the CONFIGURATION and LOGGING sections below.
+the CONFIGURATION, ENABLE, and LOGGING sections below.
 
 Other users should do the following to install from the source repository.
 
@@ -38,8 +38,9 @@ Other users should do the following to install from the source repository.
     # Add the devices you want to rebind:
     sudo vim /etc/rebind-devices.conf
 
-    # Enable and start:
-    sudo systemctl enable --now rebind-devices
+### ENABLE
+
+    sudo systemctl enable rebind-devices
 
 ### LOGGING
 
@@ -53,10 +54,11 @@ Other users should do the following to install from the source repository.
     sudo ./rebind-devices-setup install
     sudo systemctl restart rebind-devices
 
-### UNINSTALL
+### DISABLE
 
-    # Stop and disable
-    sudo systemctl disable --now rebind-devices
+    sudo systemctl disable rebind-devices
+
+### UNINSTALL
 
     # cd to source dir
     cd rebind-devices
