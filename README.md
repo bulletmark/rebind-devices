@@ -36,7 +36,7 @@ Other users should do the following to install from the source repository.
     sudo cp /usr/share/rebind-devices/rebind-devices.conf /etc/
 
     # Add the devices you want to rebind:
-    sudo vim /etc/rebind-devices.conf
+    sudoedit /etc/rebind-devices.conf
 
 ### ENABLE
 
