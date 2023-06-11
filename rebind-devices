@@ -6,10 +6,11 @@ import sys
 import time
 import argparse
 from pathlib import Path
+from typing import Tuple
 
 RETRIES = 30
 
-def rebind(dev):
+def rebind(dev: Path) -> Tuple[bool, str]:
     'Rebind the specified device'
     if not dev.exists():
         return False, f'No device {dev}'
