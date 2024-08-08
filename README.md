@@ -66,6 +66,21 @@ Other users should do the following to install from the source repository.
     sudo ./rebind-devices-setup uninstall
     sudo rm /etc/rebind-devices.conf
 
+## USAGE
+
+Type `rebind-devices -h` to view the usage summary:
+
+```
+usage: rebind-devices [-h] [-c CONFIG]
+
+Program to rebind configured devices after resume from suspend.
+
+options:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        config file (default: /etc/rebind-devices.conf)
+```
+
 ## LICENSE
 
 Copyright (C) 2021 Mark Blakeney. This program is distributed under the
