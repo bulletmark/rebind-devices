@@ -19,7 +19,7 @@ restore. I used `lspci | grep USB` to determine it's BUS ID.
 The latest version and documentation for this utility is available at
 https://github.com/bulletmark/rebind-devices.
 
-### INSTALLATION
+## INSTALLATION
 
 Arch Linux users can install [rebind-devices from the
 AUR](https://aur.archlinux.org/packages/rebind-devices/) and just follow
@@ -31,22 +31,22 @@ Other users should do the following to install from the source repository.
     cd rebind-devices
     sudo ./rebind-devices-setup install
 
-### CONFIGURATION
+## CONFIGURATION
 
     sudo cp /usr/share/rebind-devices/rebind-devices.conf /etc/
 
     # Add the devices you want to rebind:
     sudoedit /etc/rebind-devices.conf
 
-### ENABLE
+## ENABLE
 
     sudo systemctl enable rebind-devices
 
-### LOGGING
+## LOGGING
 
     journalctl -u rebind-devices
 
-### UPGRADE
+## UPGRADE
 
     # cd to source dir
     cd rebind-devices
@@ -54,11 +54,11 @@ Other users should do the following to install from the source repository.
     sudo ./rebind-devices-setup install
     sudo systemctl restart rebind-devices
 
-### DISABLE
+## DISABLE
 
     sudo systemctl disable rebind-devices
 
-### UNINSTALL
+## UNINSTALL
 
     # cd to source dir
     cd rebind-devices
@@ -66,7 +66,7 @@ Other users should do the following to install from the source repository.
     sudo ./rebind-devices-setup uninstall
     sudo rm /etc/rebind-devices.conf
 
-### LICENSE
+## LICENSE
 
 Copyright (C) 2021 Mark Blakeney. This program is distributed under the
 terms of the GNU General Public License.

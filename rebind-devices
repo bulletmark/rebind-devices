@@ -2,15 +2,15 @@
 'Program to rebind configured devices after resume from suspend.'
 # Author: Mark Blakeney, Feb 2021.
 
+from __future__ import annotations
 import argparse
 import sys
 import time
 from pathlib import Path
-from typing import Tuple
 
 RETRIES = 30
 
-def rebind(dev: Path) -> Tuple[bool, str]:
+def rebind(dev: Path) -> tuple[bool, str]:
     'Rebind the specified device'
     if not dev.exists():
         return False, f'No device {dev}'
@@ -39,7 +39,7 @@ def rebind(dev: Path) -> Tuple[bool, str]:
     return False, f'Failed to rebind {dev} within {RETRIES} attempts.'
 
 # Process command line options
-opt = argparse.ArgumentParser(description=__doc__.strip(),
+opt = argparse.ArgumentParser(description=__doc__,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 opt.add_argument('-c', '--config', default=f'/etc/{opt.prog}.conf',
         help='config file')
