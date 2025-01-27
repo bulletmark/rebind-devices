@@ -25,10 +25,9 @@ uninstall:
 	@./$(NAME)-setup -d "$(DESTDIR)" uninstall
 
 check:
-	ruff $(NAME)
-	flake8 $(NAME)
+	ruff check $(NAME)
 	mypy $(NAME)
-	pyright-cli $(NAME)
+	pyright $(NAME)
 	vermin --no-tips -i $(NAME)
 	shellcheck $(NAME)-setup
 
